@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BrightNest dark theme tokens (from constants/colors.ts) -->
+    <color name="background">#06140E</color>
+    <color name="foreground">#EAF3EC</color>
+    <color name="card">#0E2419</color>
+    <color name="primary">#2EA77C</color>
+    <color name="on_primary">#06140E</color>
+    <color name="secondary">#14301F</color>
+    <color name="sage">#7FB89A</color>
+    <color name="coral">#E0A977</color>
+    <color name="lavender">#A99FBF</color>
+    <color name="muted">#14301F</color>
+    <color name="muted_foreground">#9DB3A6</color>
+    <color name="accent">#D8BE6B</color>
+    <color name="destructive">#E2796F</color>
+    <color name="border">#1B3A28</color>
+</resources>

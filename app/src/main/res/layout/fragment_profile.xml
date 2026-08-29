@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:background="@drawable/circle_icon_bg"
+                android:text="?"
+                android:textColor="@color/on_primary"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="User"
+                android:textColor="@color/foreground"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user@example.com"
+                android:textColor="@color/muted_foreground"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Settings section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/card"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌐  Choose Language"
+                        android:textColor="@color/foreground"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/langChips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:singleSelection="true" />
+                </LinearLayout>
+
+                <View style="@style/Divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="🌙  Adult Mode"
+                        android:textColor="@color/foreground"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchAdult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowSettings"
+                    style="@style/ProfileRow"
+                    android:text="⚙️   Settings" />
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowParent"
+                    style="@style/ProfileRow"
+                    android:text="🛡️   Parent Control" />
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowSubscription"
+                    style="@style/ProfileRow"
+                    android:text="⭐   Subscription   PRO"
+                    android:textColor="@color/accent" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Academy section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/card"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📖  Unique Online Quran Academy"
+                        android:textColor="@color/foreground"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Learn Quran with us · ہم سے قرآن سیکھیں"
+                        android:textColor="@color/muted_foreground"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowAcademyWhatsapp"
+                    style="@style/ProfileRow"
+                    android:text="💬   WhatsApp   ·   +92 320 5340788" />
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowAcademyCall"
+                    style="@style/ProfileRow"
+                    android:text="📞   Call   ·   +92 320 5340788" />
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowAcademyEmail"
+                    style="@style/ProfileRow"
+                    android:text="✉️   Email   ·   id83002@gmail.com" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Support section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/card"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🛟  Support &amp; Complaints"
+                        android:textColor="@color/foreground"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="We're here to help · ہم آپ کی مدد کے لیے حاضر ہیں"
+                        android:textColor="@color/muted_foreground"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowSupportWhatsapp"
+                    style="@style/ProfileRow"
+                    android:text="💬   WhatsApp   ·   +92 320 5340788" />
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowSupportCall"
+                    style="@style/ProfileRow"
+                    android:text="📞   Call   ·   +92 320 5340788" />
+
+                <View style="@style/Divider" />
+
+                <TextView
+                    android:id="@+id/rowSupportEmail"
+                    style="@style/ProfileRow"
+                    android:text="✉️   Email   ·   id83002@gmail.com" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Sign Out"
+            android:textAllCaps="false"
+            android:textColor="@color/destructive"
+            app:cornerRadius="12dp"
+            app:backgroundTint="@color/secondary" />
+    </LinearLayout>
+</ScrollView>

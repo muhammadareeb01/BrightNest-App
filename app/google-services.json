@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "453251516733",
+    "firebase_url": "https://brightapp-21509-default-rtdb.firebaseio.com",
+    "project_id": "brightapp-21509",
+    "storage_bucket": "brightapp-21509.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453251516733:android:bdc948e5bf52b32604dd54",
+        "android_client_info": {
+          "package_name": "com.brightnest.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453251516733-64jhbs83o83r7l3da876sk4eu3tofb0k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brightnest.app",
+            "certificate_hash": "e018a5b54369ccc1945cfc0eea6259ed5b0944eb"
+          }
+        },
+        {
+          "client_id": "453251516733-5vcu0ja3chavqaq0v4avh9f4u4mlir74.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWc4YMIPi_RFYZ_fv4IlYzm22KMzzrUc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453251516733-5vcu0ja3chavqaq0v4avh9f4u4mlir74.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

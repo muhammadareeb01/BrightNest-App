@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="@color/green_light"
+                android:centerColor="@color/green_primary"
+                android:endColor="@color/green_primary_dark" />
+        </shape>
+    </item>
+    <item
+        android:gravity="bottom|fill_horizontal"
+        android:drawable="@drawable/ic_mosque_silhouette" />
+</layer-list>

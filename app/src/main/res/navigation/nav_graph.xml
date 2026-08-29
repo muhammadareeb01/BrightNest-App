@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <!-- Bottom tabs -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.brightnest.app.ui.HomeFragment"
+        android:label="@string/tab_home" />
+
+    <fragment
+        android:id="@+id/learnFragment"
+        android:name="com.brightnest.app.ui.LearnFragment"
+        android:label="@string/tab_learn"
+        tools:layout="@layout/fragment_grid" />
+
+    <fragment
+        android:id="@+id/aiFragment"
+        android:name="com.brightnest.app.ui.AiFragment"
+        android:label="@string/tab_ai"
+        tools:layout="@layout/fragment_ai" />
+
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="com.brightnest.app.ui.AlarmFragment"
+        android:label="Alarm"
+        tools:layout="@layout/fragment_alarm" />
+
+    <fragment
+        android:id="@+id/rewardsFragment"
+        android:name="com.brightnest.app.ui.RewardsFragment"
+        android:label="@string/tab_rewards"
+        tools:layout="@layout/fragment_rewards" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.brightnest.app.ui.ProfileFragment"
+        android:label="@string/tab_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <!-- Feature destinations -->
+    <fragment
+        android:id="@+id/quranFragment"
+        android:name="com.brightnest.app.ui.QuranFragment"
+        android:label="@string/f_quran"
+        tools:layout="@layout/fragment_list" />
+
+    <fragment
+        android:id="@+id/kalmasFragment"
+        android:name="com.brightnest.app.ui.KalmasFragment"
+        android:label="@string/f_kalmas"
+        tools:layout="@layout/fragment_list" />
+
+    <fragment
+        android:id="@+id/duasFragment"
+        android:name="com.brightnest.app.ui.DuasFragment"
+        android:label="@string/f_duas"
+        tools:layout="@layout/fragment_list" />
+
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.brightnest.app.ui.QuizFragment"
+        android:label="@string/f_quiz"
+        tools:layout="@layout/fragment_quiz" />
+
+    <fragment
+        android:id="@+id/tablesFragment"
+        android:name="com.brightnest.app.ui.TablesFragment"
+        android:label="@string/f_tables"
+        tools:layout="@layout/fragment_tables" />
+
+    <fragment
+        android:id="@+id/drawingFragment"
+        android:name="com.brightnest.app.ui.DrawingFragment"
+        android:label="@string/f_drawing"
+        tools:layout="@layout/fragment_drawing" />
+
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.brightnest.app.ui.GamesFragment"
+        android:label="Mini Games"
+        tools:layout="@layout/fragment_games" />
+
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.brightnest.app.ui.LeaderboardFragment"
+        android:label="Leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
+
+    <fragment
+        android:id="@+id/storiesFragment"
+        android:name="com.brightnest.app.ui.StoriesFragment"
+        android:label="Stories"
+        tools:layout="@layout/fragment_stories" />
+
+    <fragment
+        android:id="@+id/dodgingTablesFragment"
+        android:name="com.brightnest.app.ui.DodgingTablesFragment"
+        android:label="Dodging Tables"
+        tools:layout="@layout/fragment_dodging_tables" />
+
+    <fragment
+        android:id="@+id/memoryFragment"
+        android:name="com.brightnest.app.ui.MemoryFragment"
+        android:label="Memory Match"
+        tools:layout="@layout/fragment_memory" />
+
+    <fragment
+        android:id="@+id/puzzleFragment"
+        android:name="com.brightnest.app.ui.PuzzleFragment"
+        android:label="Slide Puzzle"
+        tools:layout="@layout/fragment_puzzle" />
+
+    <fragment
+        android:id="@+id/mathFragment"
+        android:name="com.brightnest.app.ui.MathFragment"
+        android:label="Math Quiz"
+        tools:layout="@layout/fragment_math" />
+
+    <fragment
+        android:id="@+id/coloringFragment"
+        android:name="com.brightnest.app.ui.ColoringFragment"
+        android:label="Coloring"
+        tools:layout="@layout/fragment_coloring" />
+
+    <fragment
+        android:id="@+id/subscriptionFragment"
+        android:name="com.brightnest.app.ui.SubscriptionFragment"
+        android:label="@string/f_subscription"
+        tools:layout="@layout/fragment_subscription" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.brightnest.app.ui.SettingsFragment"
+        android:label="@string/f_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/genericFragment"
+        android:name="com.brightnest.app.ui.GenericFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_generic">
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="BrightNest" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cardGridFragment"
+        android:name="com.brightnest.app.ui.CardGridFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_card_grid">
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="ABC" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/vowelsFragment"
+        android:name="com.brightnest.app.ui.VowelsFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_content_list" />
+
+    <fragment
+        android:id="@+id/vowelDetailFragment"
+        android:name="com.brightnest.app.ui.VowelDetailFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_vowel_detail">
+        <argument
+            android:name="letter"
+            app:argType="string"
+            android:defaultValue="A" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tensesFragment"
+        android:name="com.brightnest.app.ui.TensesFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_content_list" />
+
+    <fragment
+        android:id="@+id/tenseDetailFragment"
+        android:name="com.brightnest.app.ui.TenseDetailFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_tense_detail">
+        <argument
+            android:name="tenseName"
+            app:argType="string"
+            android:defaultValue="Present Simple" />
+        <argument
+            android:name="groupName"
+            app:argType="string"
+            android:defaultValue="Present" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/basicsFragment"
+        android:name="com.brightnest.app.ui.BasicsFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_content_list" />
+
+    <fragment
+        android:id="@+id/basicDetailFragment"
+        android:name="com.brightnest.app.ui.BasicDetailFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_basic_detail">
+        <argument
+            android:name="en"
+            app:argType="string" />
+        <argument
+            android:name="ur"
+            app:argType="string" />
+        <argument
+            android:name="color"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/poemsFragment"
+        android:name="com.brightnest.app.ui.PoemsFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_poems" />
+
+    <fragment
+        android:id="@+id/namazFragment"
+        android:name="com.brightnest.app.ui.NamazFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_namaz" />
+
+    <fragment
+        android:id="@+id/wuduFragment"
+        android:name="com.brightnest.app.ui.WuduFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_content_list" />
+
+    <fragment
+        android:id="@+id/namesFragment"
+        android:name="com.brightnest.app.ui.NamesFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_names" />
+
+    <fragment
+        android:id="@+id/prayerTimesFragment"
+        android:name="com.brightnest.app.ui.PrayerTimesFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_prayer_times" />
+
+    <fragment
+        android:id="@+id/plannerFragment"
+        android:name="com.brightnest.app.ui.PlannerFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.brightnest.app.ui.NotesFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/expensesFragment"
+        android:name="com.brightnest.app.ui.ExpensesFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/habitsFragment"
+        android:name="com.brightnest.app.ui.HabitsFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/goalsFragment"
+        android:name="com.brightnest.app.ui.GoalsFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/tasbeehFragment"
+        android:name="com.brightnest.app.ui.TasbeehFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/waterFragment"
+        android:name="com.brightnest.app.ui.WaterFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/englishFragment"
+        android:name="com.brightnest.app.ui.EnglishFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/freelanceFragment"
+        android:name="com.brightnest.app.ui.FreelanceFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/businessFragment"
+        android:name="com.brightnest.app.ui.BusinessFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+
+    <fragment
+        android:id="@+id/parentControlFragment"
+        android:name="com.brightnest.app.ui.ParentControlFragment"
+        android:label="BrightNest"
+        tools:layout="@layout/fragment_adult_tool" />
+</navigation>

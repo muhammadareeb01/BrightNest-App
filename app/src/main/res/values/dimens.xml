@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gap_xs">4dp</dimen>
+    <dimen name="gap_s">8dp</dimen>
+    <dimen name="gap_m">16dp</dimen>
+    <dimen name="gap_l">24dp</dimen>
+    <dimen name="gap_xl">32dp</dimen>
+    <dimen name="card_radius">20dp</dimen>
+    <dimen name="button_radius">18dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+</resources>
