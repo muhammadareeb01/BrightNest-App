@@ -23,22 +23,40 @@ class SplashActivity : AppCompatActivity() {
         binding.appName.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in))
         binding.tagline.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in))
         lifecycleScope.launch {
-            seedIfNeeded()
-            delay(1700)
-            val prefs = Prefs(this@SplashActivity)
-            val next = when {
-                !prefs.onboarded -> OnboardingActivity::class.java
-                !prefs.loggedIn -> AuthActivity::class.java
-                else -> MainActivity::class.java
+            try {
+                val db = (application as BrightNestApp).database
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    com.brightnest.app.data.FirestoreRepository.seedLocalRoomDbFast(db)
+                }
+            } catch (e: Throwable) {
+                android.util.Log.e("SplashActivity", "Error seeding local Room DB", e)
             }
-            startActivity(Intent(this@SplashActivity, next))
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            finish()
-        }
-    }
 
-    private suspend fun seedIfNeeded() {
-        val db = (application as BrightNestApp).database
-        com.brightnest.app.data.FirestoreRepository.syncRemoteContentToLocalDb(db)
+            kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                try {
+                    val db = (application as BrightNestApp).database
+                    com.brightnest.app.data.FirestoreRepository.syncRemoteContentToLocalDb(db)
+                } catch (e: Throwable) {
+                    android.util.Log.e("SplashActivity", "Error syncRemoteContentToLocalDb", e)
+                }
+            }
+
+            delay(1700)
+            try {
+                val prefs = Prefs(this@SplashActivity)
+                val next = when {
+                    !prefs.onboarded -> OnboardingActivity::class.java
+                    !prefs.loggedIn -> AuthActivity::class.java
+                    else -> MainActivity::class.java
+                }
+                startActivity(Intent(this@SplashActivity, next))
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                finish()
+            } catch (e: Throwable) {
+                android.util.Log.e("SplashActivity", "Error navigating from splash", e)
+                startActivity(Intent(this@SplashActivity, OnboardingActivity::class.java))
+                finish()
+            }
+        }
     }
 }

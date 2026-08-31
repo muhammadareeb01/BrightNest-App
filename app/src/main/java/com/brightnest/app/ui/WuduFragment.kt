@@ -120,12 +120,7 @@ class WuduFragment : Fragment() {
                     layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                         .apply { bottomMargin = dp(12) }
                     setOnClickListener { 
-                        val isUrdu = com.brightnest.app.Prefs(ctx).language == "ur"
-                        if (isUrdu) {
-                            speak("سٹیپ ${s.n}. ${s.nameUrdu}. ${s.descUrdu}")
-                        } else {
-                            speak("Step ${s.n}. ${s.name}. ${s.desc}")
-                        }
+                        speakStep(s)
                     }
                 }
 
@@ -171,7 +166,25 @@ class WuduFragment : Fragment() {
         }
     }
 
-    private fun speak(t: String) { if (ttsReady) { tts?.stop(); tts?.speak(t, TextToSpeech.QUEUE_FLUSH, null, "bn") } }
+    private fun speakStep(s: Step) {
+        if (!ttsReady) {
+            android.widget.Toast.makeText(context, "Please wait, audio is loading...", android.widget.Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        android.widget.Toast.makeText(context, "🔊 ${s.name} (${s.nameUrdu}) — تَعَوُّذْ اور تَسْمِیَہ کے ساتھ", android.widget.Toast.LENGTH_SHORT).show()
+
+        val azubillah = "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ"
+        val bismillah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
+        val speechText = when (s.n) {
+            2 -> "$azubillah . $bismillah . وضو شروع کرنے سے پہلے بسم اللہ پڑھیں۔ Say Bismillah before starting Wudu."
+            11 -> "$azubillah . $bismillah . أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ . وضو کے بعد کلمہ شہادت اور دعا پڑھیں۔ ${s.desc}"
+            else -> "$azubillah . $bismillah . سٹیپ ${s.n}، ${s.nameUrdu} (${s.name}) ۔ ${s.descUrdu} ۔ ${s.desc}"
+        }
+
+        tts?.stop()
+        tts?.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, "wudu_tts")
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -211,17 +211,19 @@
                 <!-- Big Illustration / Emoji Card -->
                 <LinearLayout
                     android:id="@+id/detailCardBox"
-                    android:layout_width="230dp"
-                    android:layout_height="230dp"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="240dp"
                     android:gravity="center"
                     android:orientation="vertical"
+                    android:padding="16dp"
                     android:background="@drawable/card_rounded">
 
                     <TextView
                         android:id="@+id/detailLetter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="96sp"
+                        android:textSize="64sp"
                         android:textStyle="bold"
                         android:visibility="gone"
                         android:text="A" />
@@ -230,14 +232,15 @@
                         android:id="@+id/detailEmoji"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="120sp"
+                        android:textSize="96sp"
                         android:gravity="center"
+                        android:layout_marginTop="6dp"
                         android:text="🦁" />
 
                     <View
                         android:id="@+id/detailColorCircle"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
                         android:visibility="gone" />
                 </LinearLayout>
 

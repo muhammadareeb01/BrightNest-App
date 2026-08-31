@@ -364,16 +364,45 @@ object FirestoreRepository {
     }
 
     /**
-     * Fetches Kalmas, Duas, and Quizzes from Cloud Firestore.
-     * If cloud collections exist, stores them in local Room DB for instant offline access.
-     * If cloud collections are empty, gracefully uses local SeedData.
+     * Seed local Room database instantly from offline seed data.
      */
+    suspend fun seedLocalRoomDbFast(db: BrightNestDatabase) {
+        try {
+            val gson = com.google.gson.Gson()
+            if (db.kalmaDao().count() == 0) db.kalmaDao().insertAll(SeedData.kalmas)
+            db.duaDao().insertAll(SeedData.duas)
+            if (db.quizDao().count() == 0) db.quizDao().insertAll(SeedData.quiz)
+            if (db.storyDao().count() == 0) {
+                val localStories = com.brightnest.app.ui.StoriesData.stories.map { s ->
+                    StoryEntity(
+                        id = s.id, emoji = s.emoji,
+                        titleEn = s.titleEn, titleUr = s.titleUr, titleAr = s.titleAr, titleHi = s.titleHi,
+                        taglineEn = s.taglineEn, taglineUr = s.taglineUr, taglineAr = s.taglineAr, taglineHi = s.taglineHi,
+                        lessonEn = s.lessonEn, lessonUr = s.lessonUr, lessonAr = s.lessonAr, lessonHi = s.lessonHi,
+                        contentEn = s.contentEn, contentUr = s.contentUr, contentAr = s.contentAr, contentHi = s.contentHi
+                    )
+                }
+                db.storyDao().insertAll(localStories)
+            }
+            if (db.poemDao().count() == 0) db.poemDao().insertAll(SeedData.poems)
+            if (db.namazPrayerDao().count() == 0) db.namazPrayerDao().insertAll(SeedData.namazPrayers)
+            if (db.namazStepDao().count() == 0) db.namazStepDao().insertAll(SeedData.namazSteps)
+            if (db.wuduStepDao().count() == 0) db.wuduStepDao().insertAll(SeedData.wuduSteps)
+            if (db.quranLessonDao().count() == 0) db.quranLessonDao().insertAll(SeedData.quranLessons)
+
+            seedExtraOfflineBackup(db)
+        } catch (e: Throwable) {
+            android.util.Log.e("FirestoreRepository", "seedLocalRoomDbFast error", e)
+        }
+    }
+
     /**
      * Fetches Kalmas, Duas, Quizzes, Stories, Poems, Namaz, Wudu, and Quran lessons from Cloud Firestore.
      * If cloud collections exist, stores them in local Room DB for instant offline access.
      * If cloud collections are empty, gracefully uses local SeedData and seeds the cloud.
      */
     suspend fun syncRemoteContentToLocalDb(db: BrightNestDatabase) {
+        seedLocalRoomDbFast(db)
         try {
             // 1. Sync Kalmas
             SeedData.kalmas.forEach { k ->

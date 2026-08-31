@@ -14,8 +14,7 @@ data class ArabicCardItem(
 
 class ArabicCardAdapter(
     private val items: List<ArabicCardItem>,
-    // Passes (arabicText, transliterationText) so KalmasFragment decides which to speak
-    private val onSpeak: ((arabic: String, translit: String) -> Unit)? = null
+    private val onSpeak: ((item: ArabicCardItem) -> Unit)? = null
 ) : RecyclerView.Adapter<ArabicCardAdapter.VH>() {
 
     inner class VH(val b: ItemArabicCardBinding) : RecyclerView.ViewHolder(b.root)
@@ -35,7 +34,7 @@ class ArabicCardAdapter(
         holder.b.itemTranslation.text = item.translation
 
         holder.b.btnSpeak.setOnClickListener {
-            onSpeak?.invoke(item.arabic, item.transliteration)
+            onSpeak?.invoke(item)
         }
     }
 }

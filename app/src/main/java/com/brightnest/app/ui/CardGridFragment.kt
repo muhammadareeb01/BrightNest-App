@@ -164,8 +164,9 @@ class CardGridFragment : Fragment() {
 
         // reset
         binding.detailLetter.visibility = View.GONE
-        binding.detailLetter.textSize = 96f
+        binding.detailLetter.textSize = 58f
         binding.detailEmoji.visibility = View.GONE
+        binding.detailEmoji.textSize = 96f
         binding.detailColorCircle.visibility = View.GONE
         binding.detailDots.visibility = View.GONE
         binding.detailDots.removeAllViews()
@@ -176,9 +177,11 @@ class CardGridFragment : Fragment() {
         when (s.variant) {
             KidsContent.Variant.LETTER -> {
                 binding.detailLetter.visibility = View.VISIBLE
+                binding.detailLetter.textSize = 58f
                 binding.detailLetter.text = item.label
                 binding.detailLetter.setTextColor(c)
                 binding.detailEmoji.visibility = View.VISIBLE
+                binding.detailEmoji.textSize = 90f
                 binding.detailEmoji.text = item.emoji
                 binding.detailName.text = item.detailText
             }
@@ -193,6 +196,7 @@ class CardGridFragment : Fragment() {
             }
             KidsContent.Variant.FRUIT -> {
                 binding.detailEmoji.visibility = View.VISIBLE
+                binding.detailEmoji.textSize = 96f
                 binding.detailEmoji.text = item.emoji
                 binding.detailName.text = item.label
                 val langCode = Prefs(requireContext()).language.lowercase()
@@ -207,10 +211,10 @@ class CardGridFragment : Fragment() {
             }
             KidsContent.Variant.ICON -> {
                 binding.detailEmoji.visibility = View.VISIBLE
+                binding.detailEmoji.textSize = 96f
                 binding.detailEmoji.text = item.emoji
                 binding.detailName.text = item.label
-                val langCode = Prefs(requireContext()).language.lowercase()
-                if (langCode == "ur" && item.urdu.isNotEmpty() && item.urdu != item.label) {
+                if (item.urdu.isNotEmpty() && item.urdu != item.label) {
                     binding.detailUrdu.visibility = View.VISIBLE
                     binding.detailUrdu.text = item.urdu
                 } else {
@@ -223,7 +227,7 @@ class CardGridFragment : Fragment() {
             }
             KidsContent.Variant.ALPHABET -> {
                 binding.detailLetter.visibility = View.VISIBLE
-                binding.detailLetter.textSize = 130f
+                binding.detailLetter.textSize = 100f
                 binding.detailLetter.text = item.label
                 binding.detailLetter.setTextColor(c)
                 binding.detailName.text = item.detailText
@@ -231,7 +235,7 @@ class CardGridFragment : Fragment() {
             KidsContent.Variant.NUMBER -> {
                 val n = item.label.toIntOrNull() ?: 0
                 binding.detailLetter.visibility = View.VISIBLE
-                binding.detailLetter.textSize = if (n >= 100) 110f else 140f
+                binding.detailLetter.textSize = if (n >= 100) 80f else 100f
                 binding.detailLetter.text = item.label
                 binding.detailLetter.setTextColor(c)
                 binding.detailName.visibility = View.GONE

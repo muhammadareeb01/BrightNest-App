@@ -181,22 +181,24 @@ object KidsContent {
 
     private val shapes = paletted(
         listOf(
-            Item("Circle", emoji = "⚪", speakText = "Circle"),
-            Item("Square", emoji = "🟦", speakText = "Square"),
-            Item("Triangle", emoji = "🔺", speakText = "Triangle"),
-            Item("Rectangle", emoji = "▭", speakText = "Rectangle"),
-            Item("Star", emoji = "⭐", speakText = "Star"),
-            Item("Heart", emoji = "❤️", speakText = "Heart"),
-            Item("Diamond", emoji = "🔷", speakText = "Diamond"),
-            Item("Oval", emoji = "⬭", speakText = "Oval"),
-            Item("Pentagon", emoji = "⬠", speakText = "Pentagon"),
-            Item("Hexagon", emoji = "⬡", speakText = "Hexagon"),
-            Item("Octagon", emoji = "🛑", speakText = "Octagon"),
-            Item("Crescent", emoji = "🌙", speakText = "Crescent"),
-            Item("Plus", emoji = "➕", speakText = "Plus"),
-            Item("Arrow", emoji = "⬆️", speakText = "Arrow"),
-            Item("Cube", emoji = "🧊", speakText = "Cube"),
-            Item("Sphere", emoji = "🔮", speakText = "Sphere")
+            Item("Circle", urdu = "دائرہ", emoji = "🔴", detailText = "A round 2D shape with no straight sides or corners.", speakText = "Circle. Round shape with no corners."),
+            Item("Square", urdu = "مربع / چوکور", emoji = "🟦", detailText = "A shape with 4 equal sides and 4 equal right angles.", speakText = "Square. 4 equal sides."),
+            Item("Triangle", urdu = "مثلث / تکون", emoji = "🔺", detailText = "A shape with 3 straight sides and 3 sharp corners.", speakText = "Triangle. 3 sides."),
+            Item("Rectangle", urdu = "مستطیل", emoji = "🟧", detailText = "A 4-sided shape with equal opposite sides and 4 right angles.", speakText = "Rectangle. 4 sides with opposite sides equal."),
+            Item("Star", urdu = "ستارہ", emoji = "⭐", detailText = "A beautiful twinkling 5-pointed geometric star.", speakText = "Star. 5 points."),
+            Item("Heart", urdu = "دل", emoji = "❤️", detailText = "A classic heart shape symbol of care and love.", speakText = "Heart shape."),
+            Item("Diamond", urdu = "ہیرا / لوزینج", emoji = "💎", detailText = "A rhombus shape with 4 slanted sides like a gem.", speakText = "Diamond shape."),
+            Item("Oval", urdu = "بیضوی", emoji = "🥚", detailText = "An elongated rounded curve shape like an egg.", speakText = "Oval. Egg shape."),
+            Item("Pentagon", urdu = "مخمس (5 کونے)", emoji = "🛑", detailText = "A polygon shape with 5 straight sides and 5 angles.", speakText = "Pentagon. 5 sides."),
+            Item("Hexagon", urdu = "مسدس (6 کونے)", emoji = "⬢", detailText = "A polygon shape with 6 straight sides like a honeycomb.", speakText = "Hexagon. 6 sides."),
+            Item("Octagon", urdu = "مثمن (8 کونے)", emoji = "🛑", detailText = "An 8-sided polygon commonly used for Stop signs.", speakText = "Octagon. 8 sides."),
+            Item("Crescent", urdu = "ہلال / چاند", emoji = "🌙", detailText = "A curved moon shape with tapering sharp ends.", speakText = "Crescent moon."),
+            Item("Plus", urdu = "جمع / پلس", emoji = "➕", detailText = "A cross symbol with 4 perpendicular equal arms.", speakText = "Plus cross shape."),
+            Item("Arrow", urdu = "تیر کا نشان", emoji = "⬆️", detailText = "A directional pointer with a shaft and triangle head.", speakText = "Arrow shape."),
+            Item("Cube", urdu = "مکعب (تھری ڈی ڈبہ)", emoji = "🎲", detailText = "A 3D solid box with 6 identical square faces.", speakText = "Cube. 3D solid with 6 square faces."),
+            Item("Sphere", urdu = "کرہ (گیند)", emoji = "🔮", detailText = "A perfectly round 3D solid shape like a ball.", speakText = "Sphere. 3D round ball."),
+            Item("Cylinder", urdu = "استوانہ (سلنڈر)", emoji = "🛢️", detailText = "A 3D solid with 2 circular bases and a curved tube.", speakText = "Cylinder shape."),
+            Item("Cone", urdu = "مخروط (کون)", emoji = "🍦", detailText = "A 3D shape that tapers smoothly from a circular base to a point.", speakText = "Cone shape.")
         )
     )
 
@@ -342,7 +344,7 @@ object KidsContent {
         Screen("ABC", "اے بی سی", Variant.LETTER, 4, "coral", abc),
         Screen("Animals", "جانور", Variant.ICON, 4, "coral", animals),
         Screen("Colors", "رنگ", Variant.COLOR, 4, "coral", colors),
-        Screen("Shapes", "شکلیں", Variant.ICON, 4, "coral", shapes),
+        Screen("Shapes", "شکلیں", Variant.ICON, 3, "coral", shapes),
         Screen("Body Parts", "اعضاء", Variant.ICON, 4, "coral", bodyParts),
         Screen("Science", "سائنس", Variant.ICON, 4, "coral", science),
         Screen("Fruits", "پھل و سبزیاں", Variant.FRUIT, 3, "sage", fruits),

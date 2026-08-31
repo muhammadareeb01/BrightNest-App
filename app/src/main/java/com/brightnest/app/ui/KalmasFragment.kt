@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.brightnest.app.BrightNestApp
 import com.brightnest.app.databinding.FragmentListBinding
 import kotlinx.coroutines.launch
+import androidx.navigation.fragment.findNavController
+import com.brightnest.app.data.SeedData
 import java.util.Locale
 
 class KalmasFragment : Fragment(), TextToSpeech.OnInitListener {
@@ -34,6 +36,9 @@ class KalmasFragment : Fragment(), TextToSpeech.OnInitListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.headerTitle.text = "Six Kalmas"
+        binding.headerSubTitle.text = "چھ کلمے"
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
 
         // Initialise TTS engine
@@ -41,11 +46,13 @@ class KalmasFragment : Fragment(), TextToSpeech.OnInitListener {
 
         viewLifecycleOwner.lifecycleScope.launch {
             val db = (requireActivity().application as BrightNestApp).database
-            val items = db.kalmaDao().all().map {
+            val raw = try { db.kalmaDao().all() } catch (e: Exception) { emptyList() }
+            val list = if (raw.isNotEmpty()) raw else SeedData.kalmas
+            val items = list.map {
                 ArabicCardItem(it.title, it.arabic, it.transliteration, it.translation)
             }
-            _binding?.recycler?.adapter = ArabicCardAdapter(items) { arabicText, translitText ->
-                speakKalma(arabicText, translitText)
+            _binding?.recycler?.adapter = ArabicCardAdapter(items) { item ->
+                speakKalma(item)
             }
         }
     }
@@ -81,20 +88,29 @@ class KalmasFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     /**
-     * Speaks the Arabic text if Arabic TTS is available (natural Arabic voice),
-     * otherwise falls back to the English transliteration.
-     * Before speaking any Kalma, it recites Ta'awwudh (Azubillah) first, then Tasmiyah (Bismillah), then the Kalma.
+     * Speaks the Kalma:
+     * 1. Reads the Kalma Title.
+     * 2. Recites Ta'awwudh (Azubillah).
+     * 3. Recites Tasmiyah (Bismillah).
+     * 4. Recites the Kalma Arabic & transliteration.
      */
-    private fun speakKalma(arabicText: String, translitText: String) {
+    private fun speakKalma(item: ArabicCardItem) {
         if (!ttsReady) {
-            Toast.makeText(context, "Please wait, TTS is loading...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Please wait, audio is loading...", Toast.LENGTH_SHORT).show()
             return
         }
 
+        Toast.makeText(context, "🔊 ${item.title} — تَعَوُّذْ اور تَسْمِیَہ کے ساتھ", Toast.LENGTH_SHORT).show()
+
+        val azubillahAr = "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ"
+        val bismillahAr = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
+        val azubillahEn = "A'oodhu billahi minash-shaytanir-rajeem."
+        val bismillahEn = "Bismillahir-Rahmanir-Raheem."
+
         val textToSpeak = if (arabicAvailable) {
-            "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ . بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ . $arabicText"
+            "${item.title} . $azubillahAr . $bismillahAr . ${item.arabic}"
         } else {
-            "A'udhu billahi min ash-shaytanir-rajim. Bismillahir-Rahmanir-Rahim. $translitText"
+            "${item.title}. $azubillahEn $bismillahEn ${item.transliteration}"
         }
 
         tts?.stop()

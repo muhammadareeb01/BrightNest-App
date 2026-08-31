@@ -363,10 +363,9 @@ class SubscriptionFragment : Fragment() {
                 cta.setOnClickListener { prefs.premiumTier = "free"; render() }
             }
             else -> {
-                cta.background = if (tier.highlight) GameUi.rounded(primary, dpf(14)) else GameUi.rounded(Color.TRANSPARENT, dpf(14), primary, dp(2))
-                cta.addView(TextView(ctx).apply { text = "Choose ${tier.name}"; setTextColor(if (tier.highlight) primaryFg else primary); textSize = 15f; setTypeface(typeface, Typeface.BOLD) })
-                cta.addView(TextView(ctx).apply { text = "→"; setTextColor(if (tier.highlight) primaryFg else primary); textSize = 15f; setPadding(dp(8), 0, 0, 0) })
-                cta.setOnClickListener { selected = tier.id; justUnlocked = false; modalOpen = true; render() }
+                cta.background = GameUi.rounded(Color.TRANSPARENT, dpf(14), muted, dp(2))
+                cta.addView(TextView(ctx).apply { text = "Coming Soon"; setTextColor(muted); textSize = 15f; setTypeface(typeface, Typeface.BOLD) })
+                cta.setOnClickListener { android.widget.Toast.makeText(ctx, "Coming Soon!", android.widget.Toast.LENGTH_SHORT).show() }
             }
         }
         return cta

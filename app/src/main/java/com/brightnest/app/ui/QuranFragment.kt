@@ -13,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import com.brightnest.app.BrightNestApp
 import kotlinx.coroutines.launch
 
+import androidx.navigation.fragment.findNavController
+
 class QuranFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
@@ -25,6 +27,9 @@ class QuranFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.headerTitle.text = "Quran Lessons"
+        binding.headerSubTitle.text = "قرآن پاک کی تعلیم"
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
 
         val sections = listOf(

@@ -76,11 +76,16 @@ class CardGridAdapter(
                 bg.setStroke((2 * density).toInt(), c)
                 holder.b.itemMain.visibility = View.VISIBLE
                 holder.b.itemMain.text = item.emoji
-                holder.b.itemMain.textSize = 30f
+                holder.b.itemMain.textSize = 36f
                 holder.b.itemLabel.visibility = View.VISIBLE
                 holder.b.itemLabel.text = item.label
                 holder.b.itemLabel.setTextColor(c)
-                holder.b.itemUrdu.visibility = View.GONE
+                if (item.urdu.isNotEmpty() && item.urdu != item.label) {
+                    holder.b.itemUrdu.visibility = View.VISIBLE
+                    holder.b.itemUrdu.text = item.urdu
+                } else {
+                    holder.b.itemUrdu.visibility = View.GONE
+                }
             }
             KidsContent.Variant.ALPHABET -> {
                 bg.setColor(ColorUtils.setAlphaComponent(c, 0x20))
