@@ -20,6 +20,10 @@ import com.brightnest.app.R
 import com.brightnest.app.databinding.FragmentMathBinding
 import kotlin.math.max
 import kotlin.math.min
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 
 class MathFragment : Fragment() {
 
@@ -151,7 +155,29 @@ class MathFragment : Fragment() {
         streak = newStreak
         bestStreak = max(bestStreak, newStreak)
         totalWins += 1
-        if (totalWins >= 10) prefs.unlockBadge("math_10")
+        if (totalWins >= 10) {
+            val isNew = prefs.unlockBadge("math_10")
+            if (isNew) {
+                val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+                if (uid != null) {
+                    kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                        try {
+                            com.brightnest.app.data.FirestoreRepository.saveKidsProgress(
+                                uid,
+                                com.brightnest.app.data.KidsProgress(
+                                    coins = prefs.coins,
+                                    stars = prefs.stars,
+                                    streak = prefs.streak,
+                                    badges = prefs.badges.toList()
+                                )
+                            )
+                        } catch (e: Exception) {
+                            android.util.Log.w("MathFragment", "Badge sync failed", e)
+                        }
+                    }
+                }
+            }
+        }
         feedback = "correct"
         showGameplay()
         handler.postDelayed({ if (isAdded) generateProblem() }, 700)

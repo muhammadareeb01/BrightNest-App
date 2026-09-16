@@ -9,6 +9,14 @@ class Prefs(context: Context) {
         get() = sp.getBoolean("onboarded", false)
         set(value) = sp.edit().putBoolean("onboarded", value).apply()
 
+    var ageVerified: Boolean
+        get() = sp.getBoolean("age_verified", false)
+        set(value) = sp.edit().putBoolean("age_verified", value).apply()
+
+    var isAdult: Boolean
+        get() = sp.getBoolean("is_adult", false)
+        set(value) = sp.edit().putBoolean("is_adult", value).apply()
+
     var loggedIn: Boolean
         get() = sp.getBoolean("logged_in", false)
         set(value) = sp.edit().putBoolean("logged_in", value).apply()
@@ -93,6 +101,24 @@ class Prefs(context: Context) {
         get() = sp.getStringSet("badges", emptySet()) ?: emptySet()
         set(value) = sp.edit().putStringSet("badges", value).apply()
 
+    // -- Badge activity counters --
+    var animalsViewed: Int
+        get() = sp.getInt("animals_viewed", 0)
+        set(value) = sp.edit().putInt("animals_viewed", value).apply()
+
+    var abcLetterTapped: Boolean
+        get() = sp.getBoolean("abc_letter_tapped", false)
+        set(value) = sp.edit().putBoolean("abc_letter_tapped", value).apply()
+
+    var drawingCount: Int
+        get() = sp.getInt("drawing_count", 0)
+        set(value) = sp.edit().putInt("drawing_count", value).apply()
+
+    // ISO date (yyyy-MM-dd) of the last day user opened app
+    var streakLastDate: String
+        get() = sp.getString("streak_last_date", "") ?: ""
+        set(value) = sp.edit().putString("streak_last_date", value).apply()
+
     var alarmsJson: String
         get() = sp.getString("alarms_json", "[]") ?: "[]"
         set(value) = sp.edit().putString("alarms_json", value).apply()
@@ -105,8 +131,27 @@ class Prefs(context: Context) {
 
     fun addStars(n: Int) { stars += n }
 
-    fun unlockBadge(id: String) {
-        if (!badges.contains(id)) badges = badges + id
+    fun unlockBadge(id: String): Boolean {
+        return if (!badges.contains(id)) {
+            badges = badges + id
+            true // newly unlocked
+        } else false
+    }
+
+    /**
+     * Call once per app session (e.g. HomeFragment.onResume).
+     * Increments streak if user hasn't been counted today, resets if they skipped a day.
+     * Returns the new streak value.
+     */
+    fun checkAndUpdateStreak(): Int {
+        val fmt = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
+        val today = fmt.format(java.util.Date())
+        if (streakLastDate == today) return streak // already counted today
+
+        val yesterday = fmt.format(java.util.Date(System.currentTimeMillis() - 86_400_000L))
+        streak = if (streakLastDate == yesterday) streak + 1 else 1
+        streakLastDate = today
+        return streak
     }
 
     fun logout() {

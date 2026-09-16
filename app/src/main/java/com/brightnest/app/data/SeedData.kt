@@ -29,71 +29,20 @@ object SeedData {
             "O Allah, I seek refuge in You from associating anything with You while I know it, and I seek Your forgiveness for what I do not know. I repent from it and I dissociate myself from disbelief, polytheism, falsehood, backbiting, innovation, slander, lewdness, false accusation, and all sins whatsoever. I submit and I declare: There is none worthy of worship except Allah, and Muhammad is the Messenger of Allah.")
     )
 
-    val duas = listOf(
-        Dua(id = 1, title = "Before Eating (کھانا کھانے سے پہلے)", arabic = "بِسْمِ اللَّهِ وَعَلَىٰ بَرَكَةِ اللَّهِ",
-            transliteration = "Bismillahi wa 'ala barakatillah",
-            translation = "In the name of Allah and with the blessings of Allah. (اللہ کے نام کے ساتھ اور اللہ کی برکت پر شروع کرتا ہوں)", category = "Daily"),
-        Dua(id = 2, title = "After Eating (کھانا کھانے کے بعد)", arabic = "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ",
-            transliteration = "Alhamdulillahil-ladhi at'amana wa saqana wa ja'alana Muslimeen",
-            translation = "All praise is due to Allah who fed us, gave us drink, and made us Muslims. (تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں کھلایا، پلایا اور مسلمان بنایا)", category = "Daily"),
-        Dua(id = 3, title = "Forgot Dua Before Eating (دعا بھول جانے پر)", arabic = "بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ",
-            transliteration = "Bismillahi awwalahu wa akhirahu",
-            translation = "In the name of Allah at its beginning and end. (اللہ کے نام کے ساتھ اس کے اول اور آخر میں)", category = "Daily"),
-        Dua(id = 4, title = "Before Sleeping (سوتے وقت کی دعا)", arabic = "اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا",
-            transliteration = "Allahumma bismika amootu wa ahya",
-            translation = "O Allah, with Your name I die and I live. (اے اللہ! تیرے نام کے ساتھ میں مرتا ہوں اور جیتا ہوں)", category = "Daily"),
-        Dua(id = 5, title = "Waking Up (نیند سے بیدار ہونے پر)", arabic = "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
-            transliteration = "Alhamdulillahil-ladhi ahyana ba'da ma amatana wa ilaihin-nushoor",
-            translation = "All praise is due to Allah who gave us life after causing us to die, and unto Him is the resurrection. (تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں موت کے بعد زندگی بخشی اور اسی کی طرف اٹھنا ہے)", category = "Daily"),
-        Dua(id = 6, title = "Entering Mosque (مسجد میں داخل ہونے کی دعا)", arabic = "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
-            transliteration = "Allahummaf-tah lee abwaba rahmatik",
-            translation = "O Allah, open for me the doors of Your mercy. (اے اللہ! میرے لیے اپنی رحمت کے دروازے کھول دے)", category = "Mosque"),
-        Dua(id = 7, title = "Leaving Mosque (مسجد سے نکلنے کی دعا)", arabic = "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
-            transliteration = "Allahumma innee as-aluka min fadlik",
-            translation = "O Allah, I ask You for Your bounty. (اے اللہ! میں تجھ سے تیرے فضل کا سوال کرتا ہوں)", category = "Mosque"),
-        Dua(id = 8, title = "Entering Home (گھر میں داخل ہونے کی دعا)", arabic = "بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَىٰ رَبِّنَا تَوَكَّلْنَا",
-            transliteration = "Bismillahi walajna, wa bismillahi kharajna, wa 'ala Rabbina tawakkalna",
-            translation = "In the name of Allah we enter, and in the name of Allah we leave, and upon our Lord we rely. (اللہ کے نام کے ساتھ ہم داخل ہوئے اور اسی کے نام سے نکلے اور اپنے رب پر بھروسہ کیا)", category = "Home"),
-        Dua(id = 9, title = "Leaving Home (گھر سے نکلتے وقت کی دعا)", arabic = "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
-            transliteration = "Bismillahi tawakkaltu 'alallahi, la hawla wa la quwwata illa billah",
-            translation = "In the name of Allah, I place my trust in Allah. There is no power nor might except with Allah. (اللہ کے نام کے ساتھ، میں نے اللہ پر بھروسہ کیا)", category = "Home"),
-        Dua(id = 10, title = "Seeking Knowledge (علم میں اضافے کی دعا)", arabic = "رَبِّ زِدْنِي عِلْمًا",
-            transliteration = "Rabbi zidnee 'ilma",
-            translation = "My Lord, increase me in knowledge. (اے میرے رب! میرے علم میں اضافہ فرما)", category = "Learning"),
-        Dua(id = 11, title = "Entering Restroom (بیت الخلاء میں داخل ہونے کی دعا)", arabic = "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ",
-            transliteration = "Allahumma innee a'oodhu bika minal-khubuthi wal-khaba-ith",
-            translation = "O Allah, I seek refuge with You from all offensive and wicked evil spirits. (اے اللہ! میں ناپاک جنات اور شیطانوں سے تیری پناہ مانگتا ہوں)", category = "Daily"),
-        Dua(id = 12, title = "Leaving Restroom (بیت الخلاء سے نکلنے کی دعا)", arabic = "غُفْرَانَكَ",
-            transliteration = "Ghufranak",
-            translation = "I seek Your forgiveness. (اے اللہ! میں تیری بخشش چاہتا ہوں)", category = "Daily"),
-        Dua(id = 13, title = "Looking in Mirror (آئینہ دیکھنے کی دعا)", arabic = "اللَّهُمَّ أَنْتَ حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي",
-            transliteration = "Allahumma anta hassanta khalqee fahassin khuluqee",
-            translation = "O Allah, just as You made my appearance beautiful, make my character beautiful too. (اے اللہ! جیسے تو نے میری صورت اچھی بنائی، میرا اخلاق بھی اچھا کر دے)", category = "Daily"),
-        Dua(id = 14, title = "For Parents (والدین کے لیے دعا)", arabic = "رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
-            transliteration = "Rabbir-hamhuma kama rabbayani sagheera",
-            translation = "My Lord, have mercy upon them both as they raised me when I was small. (اے میرے پروردگار! ان دونوں پر رحم فرما جیسا کہ انہوں نے مجھے بچپن میں پالا)", category = "Family"),
-        Dua(id = 15, title = "Traveling / Boarding (سفر اور سواری کی دعا)", arabic = "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ",
-            transliteration = "Subhanal-ladhee sakh-khara lana hadha wa ma kunna lahu muqrineen, wa inna ila Rabbina lamunqaliboon",
-            translation = "Glory to Him who has subjected this to us. And indeed to our Lord we will return. (پاک ہے وہ ذات جس نے اس سواری کو ہمارے قابو میں کر دیا)", category = "Travel"),
-        Dua(id = 16, title = "When It Rains (بارش کے وقت کی دعا)", arabic = "اللَّهُمَّ صَيِّبًا نَافِعًا",
-            transliteration = "Allahumma sayyiban nafi'a",
-            translation = "O Allah, make it a beneficial rain. (اے اللہ! اس بارش کو نفع بخش بنا)", category = "Daily"),
-        Dua(id = 17, title = "When Sneezing (چھینک آنے پر)", arabic = "الْحَمْدُ لِلَّهِ",
-            transliteration = "Alhamdulillah",
-            translation = "All praise is due to Allah. (تمام تعریفیں اللہ کے لیے ہیں)", category = "Daily"),
-        Dua(id = 18, title = "Protection From Harm (ہر آفت اور نقصان سے حفاظت)", arabic = "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
-            transliteration = "Bismillahi-lladhi la yadurru ma'asmihi shay'un fil-ardi wa la fis-sama-i wa huwas-Samee'ul-'Aleem",
-            translation = "In the Name of Allah, with Whose Name nothing on earth nor in heaven can cause harm. (اللہ کے نام کے ساتھ جس کے نام کی برکت سے زمین اور آسمان کی کوئی چیز نقصان نہیں پہنچا سکتی)", category = "Protection"),
-        Dua(id = 19, title = "Dua-e-Qunoot (دعائے قنوت - وتر)", arabic = "اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ",
-            transliteration = "Allahumma inna nasta'eenuka wa nastaghfiruka wa nu'minu bika wa natawakkalu 'alaika wa nuthnee 'alaikal-khair",
-            translation = "O Allah, we seek Your help and ask Your forgiveness, and we praise You in the best manner. (اے اللہ! ہم تجھ سے مدد چاہتے ہیں اور تجھ سے بخشش مانگتے ہیں)", category = "Prayer"),
-        Dua(id = 20, title = "Ayat-ul-Kursi (آیت الکرسی)", arabic = "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ",
-            transliteration = "Allahu la ilaha illa huwal Hayyul Qayyoom, la ta'khudhuhu sinatuw-wa la nawm",
-            translation = "Allah! There is no deity except Him, the Ever-Living, the Sustainer of all existence. (اللہ کے سوا کوئی معبود نہیں، وہ ہمیشہ زندہ اور قائم رہنے والا ہے)", category = "Protection")
-    )
+    val duas: List<Dua> = com.brightnest.app.ui.DuasData.duas.map { d ->
+        Dua(
+            id = d.id,
+            title = d.titleEn,
+            arabic = d.arabic,
+            transliteration = d.transliteration,
+            translation = d.translationEn,
+            category = d.category
+        )
+    }
+
 
     val quiz = listOf(
-        // Easy
+        // Easy (10 questions)
         QuizQuestion(difficulty = "easy", question = "How many days are in a week?",
             optionA = "5", optionB = "6", optionC = "7", optionD = "8", correctIndex = 2),
         QuizQuestion(difficulty = "easy", question = "What color is the sky on a clear day?",
@@ -102,7 +51,19 @@ object SeedData {
             optionA = "3", optionB = "4", optionC = "5", optionD = "6", correctIndex = 2),
         QuizQuestion(difficulty = "easy", question = "Which animal says 'meow'?",
             optionA = "Dog", optionB = "Cat", optionC = "Cow", optionD = "Duck", correctIndex = 1),
-        // Medium
+        QuizQuestion(difficulty = "easy", question = "How many months are in a year?",
+            optionA = "10", optionB = "11", optionC = "12", optionD = "13", correctIndex = 2),
+        QuizQuestion(difficulty = "easy", question = "What is 2 + 2?",
+            optionA = "3", optionB = "4", optionC = "5", optionD = "6", correctIndex = 1),
+        QuizQuestion(difficulty = "easy", question = "Which fruit is yellow and long?",
+            optionA = "Apple", optionB = "Grape", optionC = "Banana", optionD = "Mango", correctIndex = 2),
+        QuizQuestion(difficulty = "easy", question = "How many fingers are on one hand?",
+            optionA = "4", optionB = "5", optionC = "6", optionD = "7", correctIndex = 1),
+        QuizQuestion(difficulty = "easy", question = "What is the first month of the year?",
+            optionA = "February", optionB = "March", optionC = "January", optionD = "April", correctIndex = 2),
+        QuizQuestion(difficulty = "easy", question = "How many sides does a triangle have?",
+            optionA = "2", optionB = "3", optionC = "4", optionD = "5", correctIndex = 1),
+        // Medium (10 questions)
         QuizQuestion(difficulty = "medium", question = "How many surahs are in the Quran?",
             optionA = "114", optionB = "110", optionC = "120", optionD = "100", correctIndex = 0),
         QuizQuestion(difficulty = "medium", question = "What is 9 x 6?",
@@ -111,7 +72,19 @@ object SeedData {
             optionA = "Venus", optionB = "Earth", optionC = "Mercury", optionD = "Mars", correctIndex = 2),
         QuizQuestion(difficulty = "medium", question = "In which city is the Kaaba located?",
             optionA = "Madinah", optionB = "Makkah", optionC = "Cairo", optionD = "Istanbul", correctIndex = 1),
-        // Hard
+        QuizQuestion(difficulty = "medium", question = "What is the capital of Pakistan?",
+            optionA = "Lahore", optionB = "Karachi", optionC = "Islamabad", optionD = "Peshawar", correctIndex = 2),
+        QuizQuestion(difficulty = "medium", question = "Which gas do plants absorb from air?",
+            optionA = "Oxygen", optionB = "Carbon Dioxide", optionC = "Nitrogen", optionD = "Hydrogen", correctIndex = 1),
+        QuizQuestion(difficulty = "medium", question = "How many rakats are in Fajr prayer?",
+            optionA = "2", optionB = "3", optionC = "4", optionD = "5", correctIndex = 0),
+        QuizQuestion(difficulty = "medium", question = "What is the largest ocean on Earth?",
+            optionA = "Atlantic", optionB = "Indian", optionC = "Arctic", optionD = "Pacific", correctIndex = 3),
+        QuizQuestion(difficulty = "medium", question = "How many players are in a cricket team?",
+            optionA = "9", optionB = "10", optionC = "11", optionD = "12", correctIndex = 2),
+        QuizQuestion(difficulty = "medium", question = "What is 15 x 4?",
+            optionA = "50", optionB = "60", optionC = "70", optionD = "80", correctIndex = 1),
+        // Hard (10 questions)
         QuizQuestion(difficulty = "hard", question = "How many verses (ayat) are in Surah Al-Baqarah?",
             optionA = "286", optionB = "200", optionC = "255", optionD = "300", correctIndex = 0),
         QuizQuestion(difficulty = "hard", question = "What is the square root of 144?",
@@ -119,7 +92,19 @@ object SeedData {
         QuizQuestion(difficulty = "hard", question = "Which prophet is known as 'Kalimullah'?",
             optionA = "Isa (AS)", optionB = "Ibrahim (AS)", optionC = "Musa (AS)", optionD = "Nuh (AS)", correctIndex = 2),
         QuizQuestion(difficulty = "hard", question = "What year (CE) did the Hijra take place?",
-            optionA = "610", optionB = "622", optionC = "630", optionD = "570", correctIndex = 1)
+            optionA = "610", optionB = "622", optionC = "630", optionD = "570", correctIndex = 1),
+        QuizQuestion(difficulty = "hard", question = "How many Juz (parts) are in the Quran?",
+            optionA = "20", optionB = "25", optionC = "30", optionD = "28", correctIndex = 2),
+        QuizQuestion(difficulty = "hard", question = "What is the speed of light (approx.) in km/s?",
+            optionA = "100,000", optionB = "200,000", optionC = "300,000", optionD = "400,000", correctIndex = 2),
+        QuizQuestion(difficulty = "hard", question = "Which Surah is known as the heart of the Quran?",
+            optionA = "Al-Fatiha", optionB = "Al-Baqarah", optionC = "Ya-Sin", optionD = "Al-Ikhlas", correctIndex = 2),
+        QuizQuestion(difficulty = "hard", question = "What is 17 x 13?",
+            optionA = "201", optionB = "211", optionC = "221", optionD = "231", correctIndex = 2),
+        QuizQuestion(difficulty = "hard", question = "Which prophet built the Kaaba with his son?",
+            optionA = "Nuh (AS)", optionB = "Ibrahim (AS)", optionC = "Ismail (AS)", optionD = "Both B and C", correctIndex = 3),
+        QuizQuestion(difficulty = "hard", question = "How many bones are in the adult human body?",
+            optionA = "186", optionB = "206", optionC = "226", optionD = "246", correctIndex = 1)
     )
 
     val poems = listOf(

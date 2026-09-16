@@ -9,9 +9,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.brightnest.app.Prefs
 import com.brightnest.app.R
 import com.brightnest.app.databinding.FragmentDrawingBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DrawingFragment : Fragment() {
 
@@ -41,6 +45,36 @@ class DrawingFragment : Fragment() {
         buildPalette()
         setBrushSize(selectedSize, 2)
         dv.setColor(Color.parseColor(selectedColor))
+
+        // Badge: artist — 3 drawing sessions
+        trackDrawingSession()
+    }
+
+    private fun trackDrawingSession() {
+        val prefs = Prefs(requireContext())
+        val newCount = prefs.drawingCount + 1
+        prefs.drawingCount = newCount
+        if (newCount >= 3) {
+            val isNew = prefs.unlockBadge("artist")
+            if (isNew) {
+                val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid ?: return
+                lifecycleScope.launch(Dispatchers.IO) {
+                    try {
+                        com.brightnest.app.data.FirestoreRepository.saveKidsProgress(
+                            uid,
+                            com.brightnest.app.data.KidsProgress(
+                                coins = prefs.coins,
+                                stars = prefs.stars,
+                                streak = prefs.streak,
+                                badges = prefs.badges.toList()
+                            )
+                        )
+                    } catch (e: Exception) {
+                        android.util.Log.w("DrawingFragment", "Badge sync failed", e)
+                    }
+                }
+            }
+        }
     }
 
     private fun setBrushSize(size: Float, index: Int) {

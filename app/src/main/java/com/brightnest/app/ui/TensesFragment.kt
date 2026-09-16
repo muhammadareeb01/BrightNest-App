@@ -105,7 +105,8 @@ class TensesFragment : Fragment() {
         )
     }
 
-    private val groups = allGroups
+    private val groups: List<Group>
+        get() = TensesLocalization.getLocalizedGroups(com.brightnest.app.Prefs(requireContext()).language.lowercase())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentContentListBinding.inflate(inflater, container, false)
@@ -268,6 +269,8 @@ class TensesFragment : Fragment() {
         if (ttsReady) {
             tts?.stop()
             tts?.speak(t, TextToSpeech.QUEUE_FLUSH, null, "tense_sentence")
+        } else {
+            android.widget.Toast.makeText(context, "Audio is loading, please try again.", android.widget.Toast.LENGTH_SHORT).show()
         }
     }
 

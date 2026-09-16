@@ -13,6 +13,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.brightnest.app.Prefs
@@ -21,6 +22,9 @@ import com.brightnest.app.content.KidsContent
 import com.brightnest.app.databinding.FragmentCardGridBinding
 import com.brightnest.app.AppLanguageHelper
 import java.util.Locale
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 class CardGridFragment : Fragment() {
 
@@ -140,8 +144,53 @@ class CardGridFragment : Fragment() {
     }
 
     private fun onItemClick(item: KidsContent.Item) {
-        Prefs(requireContext()).addCoins(1)
+        val prefs = Prefs(requireContext())
+        prefs.addCoins(1)
+
+        val s = screen
+        if (s != null) {
+            // Badge: first_letter — any ABC/Urdu/Arabic alphabet card tap
+            if (s.variant == KidsContent.Variant.LETTER || s.variant == KidsContent.Variant.ALPHABET) {
+                if (!prefs.abcLetterTapped) {
+                    prefs.abcLetterTapped = true
+                    val isNew = prefs.unlockBadge("first_letter")
+                    if (isNew) syncBadgesToCloud(prefs)
+                }
+            }
+
+            // Badge: animal_master — 8 unique animals tapped
+            if (s.title.equals("Animals", ignoreCase = true)) {
+                val viewed = prefs.animalsViewed
+                if (viewed < 8) {
+                    prefs.animalsViewed = viewed + 1
+                    if (prefs.animalsViewed >= 8) {
+                        val isNew = prefs.unlockBadge("animal_master")
+                        if (isNew) syncBadgesToCloud(prefs)
+                    }
+                }
+            }
+        }
+
         showDetail(item)
+    }
+
+    private fun syncBadgesToCloud(prefs: Prefs) {
+        val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid ?: return
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                com.brightnest.app.data.FirestoreRepository.saveKidsProgress(
+                    uid,
+                    com.brightnest.app.data.KidsProgress(
+                        coins = prefs.coins,
+                        stars = prefs.stars,
+                        streak = prefs.streak,
+                        badges = prefs.badges.toList()
+                    )
+                )
+            } catch (e: Exception) {
+                android.util.Log.w("CardGridFragment", "Badge sync failed", e)
+            }
+        }
     }
 
     private fun speak(text: String) {

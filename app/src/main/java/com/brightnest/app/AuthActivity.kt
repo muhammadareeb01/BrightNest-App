@@ -28,7 +28,8 @@ class AuthActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val prefs = Prefs(this)
-        if (prefs.loggedIn && prefs.onboarded) {
+        val forceLogin = intent.getBooleanExtra("force_login", false)
+        if (prefs.loggedIn && prefs.onboarded && !forceLogin) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
             return

@@ -21,6 +21,7 @@ class RewardsFragment : Fragment() {
     private val binding get() = _binding!!
 
     data class Badge(
+        val id: String,          // key stored in Prefs.badges
         val title: String,
         val urdu: String,
         val emoji: String,
@@ -29,12 +30,24 @@ class RewardsFragment : Fragment() {
     )
 
     private val badges = listOf(
-        Badge("First Letter", "پہلا حرف", "🔤", "You learned your first alphabet letter!", "Complete any letter in the ABC lesson."),
-        Badge("10 Math Wins", "١٠ ریاضی جیت", "➕", "A math champion in the making!", "Win 10 math quiz questions in the GK Quiz."),
-        Badge("7-Day Streak", "٧ دن مسلسل", "⚡", "Consistency is power — masha'Allah!", "Open the app and complete an activity 7 days in a row."),
-        Badge("First Surah", "پہلی سورۃ", "📖", "You read your first Surah from the Quran.", "Read Surah Al-Fatiha in the Quran section."),
-        Badge("Animal Master", "جانوروں کا ماہر", "🐾", "You know your animals!", "Tap and learn 8 different animals."),
-        Badge("Artist", "فنکار", "🎨", "A future Picasso!", "Create 3 drawings in the Drawing mini-game.")
+        Badge("first_letter",  "First Letter",   "پہلا حرف",        "🔤",
+              "You learned your first alphabet letter!",
+              "Tap any card in the ABC section."),
+        Badge("math_10",       "10 Math Wins",   "١٠ ریاضی جیت",    "➕",
+              "A math champion in the making!",
+              "Answer 10 math quiz questions correctly."),
+        Badge("streak_7",      "7-Day Streak",   "٧ دن مسلسل",      "⚡",
+              "Consistency is power — masha'Allah!",
+              "Open the app and complete an activity 7 days in a row."),
+        Badge("first_surah",   "First Surah",    "پہلی سورۃ",        "📖",
+              "You read your first Surah from the Quran.",
+              "Tap Surah Al-Fatiha in the Quran section."),
+        Badge("animal_master", "Animal Master",  "جانوروں کا ماہر", "🐾",
+              "You know your animals!",
+              "Tap and learn 8 different animals."),
+        Badge("artist",        "Artist",         "فنکار",            "🎨",
+              "A future Picasso!",
+              "Use the Drawing section 3 times.")
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -65,22 +78,53 @@ class RewardsFragment : Fragment() {
             content.findViewById<TextView>(R.id.heroStars).text = prefs.stars.toString()
             content.findViewById<TextView>(R.id.heroCoins).text = prefs.coins.toString()
             val grid = content.findViewById<GridLayout>(R.id.badgesGrid)
-            populateBadges(grid)
+            populateBadges(grid, prefs)
         }
     }
 
-    private fun populateBadges(grid: GridLayout) {
-        val muted = ContextCompat.getColor(requireContext(), R.color.muted)
+    override fun onResume() {
+        super.onResume()
+        // Refresh badge grid whenever we come back (e.g. after earning a badge elsewhere)
+        val prefs = Prefs(requireContext())
+        if (prefs.mode != "adult" && _binding != null) {
+            val grid = binding.container.findViewWithTag<GridLayout>("badgesGrid")
+                ?: binding.container.getChildAt(0)?.findViewById(R.id.badgesGrid)
+                ?: return
+            populateBadges(grid, prefs)
+        }
+    }
+
+    private fun populateBadges(grid: GridLayout, prefs: Prefs) {
+        grid.removeAllViews()
+        val unlockedIds = prefs.badges
+        val primary = ContextCompat.getColor(requireContext(), R.color.primary)
+        val muted   = ContextCompat.getColor(requireContext(), R.color.muted)
+
         badges.forEach { badge ->
+            val unlocked = unlockedIds.contains(badge.id)
             val item = layoutInflater.inflate(R.layout.item_badge, grid, false)
+
             item.findViewById<TextView>(R.id.badgeEmoji).text = badge.emoji
             item.findViewById<TextView>(R.id.badgeTitle).text = badge.title
-            item.findViewById<TextView>(R.id.badgeUrdu).text = badge.urdu
-            item.findViewById<ImageView>(R.id.badgeCircle).setColorFilter(muted)
-            item.setOnClickListener { showBadge(badge) }
+            item.findViewById<TextView>(R.id.badgeUrdu).text  = badge.urdu
+
+            val circle = item.findViewById<ImageView>(R.id.badgeCircle)
+            val lock   = item.findViewById<TextView>(R.id.badgeLock)
+
+            if (unlocked) {
+                circle.setColorFilter(primary)
+                lock.visibility = View.GONE
+                item.alpha = 1f
+            } else {
+                circle.setColorFilter(muted)
+                lock.visibility = View.VISIBLE
+                item.alpha = 0.55f
+            }
+
+            item.setOnClickListener { showBadge(badge, unlocked) }
 
             val lp = GridLayout.LayoutParams().apply {
-                width = 0
+                width  = 0
                 height = GridLayout.LayoutParams.WRAP_CONTENT
                 columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1, 1f)
             }
@@ -88,10 +132,11 @@ class RewardsFragment : Fragment() {
         }
     }
 
-    private fun showBadge(badge: Badge) {
-        val msg = "${badge.description}\n\nHOW TO EARN\n${badge.howTo}\n\nStatus: LOCKED"
+    private fun showBadge(badge: Badge, unlocked: Boolean) {
+        val status = if (unlocked) "✅  UNLOCKED — Masha'Allah!" else "🔒  LOCKED"
+        val msg    = "${badge.description}\n\nHOW TO EARN\n${badge.howTo}\n\nStatus: $status"
         AlertDialog.Builder(requireContext())
-            .setTitle("${badge.emoji}  ${badge.title} · ${badge.urdu}")
+            .setTitle("${badge.emoji}  ${badge.title}  ·  ${badge.urdu}")
             .setMessage(msg)
             .setPositiveButton("Got it!") { d, _ -> d.dismiss() }
             .show()
@@ -102,3 +147,4 @@ class RewardsFragment : Fragment() {
         _binding = null
     }
 }
+

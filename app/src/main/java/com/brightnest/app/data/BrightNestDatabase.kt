@@ -23,7 +23,7 @@ import androidx.room.RoomDatabase
         VowelsEntity::class,
         BasicsEntity::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 abstract class BrightNestDatabase : RoomDatabase() {

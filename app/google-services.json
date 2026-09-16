@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "453251516733-64jhbs83o83r7l3da876sk4eu3tofb0k.apps.googleusercontent.com",
+          "client_id": "453251516733-iqgqlt18po2kubcnl6tmq2lfnfdn3god.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.brightnest.app",
-            "certificate_hash": "e018a5b54369ccc1945cfc0eea6259ed5b0944eb"
+            "certificate_hash": "59451456bbed87f0fda09e521cef051b6635135d"
           }
         },
         {

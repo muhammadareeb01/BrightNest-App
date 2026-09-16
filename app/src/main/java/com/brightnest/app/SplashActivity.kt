@@ -45,8 +45,9 @@ class SplashActivity : AppCompatActivity() {
             try {
                 val prefs = Prefs(this@SplashActivity)
                 val next = when {
+                    !prefs.ageVerified -> AgeGateActivity::class.java
                     !prefs.onboarded -> OnboardingActivity::class.java
-                    !prefs.loggedIn -> AuthActivity::class.java
+                    !prefs.loggedIn -> if (prefs.isAdult) AuthActivity::class.java else KidsProfileActivity::class.java
                     else -> MainActivity::class.java
                 }
                 startActivity(Intent(this@SplashActivity, next))

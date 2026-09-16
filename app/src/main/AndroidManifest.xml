@@ -46,6 +46,14 @@
             android:name=".MandatoryPinActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".AgeGateActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".KidsProfileActivity"
+            android:exported="false" />
+
         <receiver
             android:name=".azan.AzanReceiver"
             android:exported="true">

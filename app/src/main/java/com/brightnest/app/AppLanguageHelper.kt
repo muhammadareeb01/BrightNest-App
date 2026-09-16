@@ -1077,13 +1077,26 @@ object AppLanguageHelper {
     }
 
     fun localizeViewTree(view: android.view.View?, langCode: String) {
-        if (view == null || langCode.lowercase() == "en") return
+        if (view == null) return
+        val isUrdu = langCode.lowercase() == "ur"
         if (view is android.widget.TextView) {
-            val original = view.text?.toString() ?: ""
-            if (original.isNotEmpty()) {
-                val loc = localizeUiText(original, langCode)
-                if (loc != original) {
-                    view.text = loc
+            if (isUrdu) {
+                try {
+                    val tf = androidx.core.content.res.ResourcesCompat.getFont(view.context, R.font.nastaliq)
+                    view.typeface = tf
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            } else {
+                view.typeface = android.graphics.Typeface.DEFAULT
+            }
+            if (langCode.lowercase() != "en") {
+                val original = view.text?.toString() ?: ""
+                if (original.isNotEmpty()) {
+                    val loc = localizeUiText(original, langCode)
+                    if (loc != original) {
+                        view.text = loc
+                    }
                 }
             }
         }

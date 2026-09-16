@@ -9,10 +9,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.brightnest.app.Prefs
 import com.brightnest.app.R
 import com.brightnest.app.databinding.FragmentHomeBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -178,6 +181,41 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         handler.post(tick)
+
+        // Daily streak tracking & badge
+        val prefs = prefsRef ?: return
+        if (prefs.mode != "adult") {
+            val newStreak = prefs.checkAndUpdateStreak()
+            // Refresh streak display if kids home is visible
+            view?.let { v ->
+                val statStreak = v.findViewById<TextView>(R.id.statStreak)
+                statStreak?.text = newStreak.toString()
+            }
+            // Unlock streak_7 badge
+            if (newStreak >= 7) {
+                val isNew = prefs.unlockBadge("streak_7")
+                if (isNew) {
+                    val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+                    if (uid != null) {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            try {
+                                com.brightnest.app.data.FirestoreRepository.saveKidsProgress(
+                                    uid,
+                                    com.brightnest.app.data.KidsProgress(
+                                        coins = prefs.coins,
+                                        stars = prefs.stars,
+                                        streak = prefs.streak,
+                                        badges = prefs.badges.toList()
+                                    )
+                                )
+                            } catch (e: Exception) {
+                                android.util.Log.w("HomeFragment", "Streak badge sync failed", e)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onPause() {

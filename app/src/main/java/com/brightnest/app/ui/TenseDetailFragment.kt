@@ -43,8 +43,10 @@ class TenseDetailFragment : Fragment(), TextToSpeech.OnInitListener {
         val tenseNameArg = arguments?.getString("tenseName") ?: "Present Simple"
         val groupNameArg = arguments?.getString("groupName") ?: "Present"
 
-        val group = TensesFragment.allGroups.find { it.title.equals(groupNameArg, ignoreCase = true) }
-            ?: TensesFragment.allGroups.first()
+        val langCode = com.brightnest.app.Prefs(requireContext()).language.lowercase()
+        val allGroups = TensesLocalization.getLocalizedGroups(langCode)
+        val group = allGroups.find { it.title.equals(groupNameArg, ignoreCase = true) }
+            ?: allGroups.first()
 
         val tense = group.tenses.find { it.name.equals(tenseNameArg, ignoreCase = true) }
             ?: group.tenses.first()
@@ -71,7 +73,8 @@ class TenseDetailFragment : Fragment(), TextToSpeech.OnInitListener {
             setStroke(dp(2), colorInt)
         }
 
-        binding.badgeCategory.text = "${group.title} Tense • زمانہ ${group.ur}"
+        val groupNameLocal = if (group.ur.isNotBlank()) group.ur else group.title
+        binding.badgeCategory.text = "${group.title} Tense • زمانہ $groupNameLocal"
         binding.badgeCategory.setTextColor(colorInt)
         binding.badgeCategory.background = GradientDrawable().apply {
             cornerRadius = dp(12).toFloat()
@@ -179,7 +182,7 @@ class TenseDetailFragment : Fragment(), TextToSpeech.OnInitListener {
 
             // Action: Speak this exact sentence when clicking card or speaker icon
             val sentenceClickAction = View.OnClickListener {
-                speakSentence(ex.en)
+                speakSentence(ex)
             }
             card.setOnClickListener(sentenceClickAction)
             micBtn.setOnClickListener(sentenceClickAction)
@@ -205,13 +208,23 @@ class TenseDetailFragment : Fragment(), TextToSpeech.OnInitListener {
         ttsReady = true
     }
 
-    private fun speakSentence(sentence: String) {
+    private fun speakSentence(ex: TensesFragment.Ex) {
         if (!ttsReady) {
             Toast.makeText(context, "Please wait, TTS is loading...", Toast.LENGTH_SHORT).show()
             return
         }
         tts?.stop()
-        tts?.speak(sentence, TextToSpeech.QUEUE_FLUSH, null, "tense_sentence")
+        
+        // 1. Speak English part
+        tts?.language = Locale.US
+        tts?.speak(ex.en, TextToSpeech.QUEUE_FLUSH, null, "tense_sentence_en")
+        
+        // 2. Speak translated part if it's not English mode and text is not empty
+        val langCode = com.brightnest.app.Prefs(requireContext()).language.lowercase()
+        if (langCode != "en" && ex.ur.isNotBlank()) {
+            com.brightnest.app.AppLanguageHelper.configureTts(tts, langCode)
+            tts?.speak(ex.ur, TextToSpeech.QUEUE_ADD, null, "tense_sentence_loc")
+        }
     }
 
     override fun onDestroyView() {

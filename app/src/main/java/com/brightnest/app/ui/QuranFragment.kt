@@ -11,6 +11,8 @@ import com.brightnest.app.databinding.FragmentListBinding
 
 import androidx.lifecycle.lifecycleScope
 import com.brightnest.app.BrightNestApp
+import com.brightnest.app.Prefs
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 import androidx.navigation.fragment.findNavController
@@ -51,8 +53,34 @@ class QuranFragment : Fragment() {
             } else sections
 
             if (_binding != null) {
-                binding.recycler.adapter = SimpleRowAdapter(list) {
-                    Toast.makeText(requireContext(), "${it.title} — lessons coming soon", Toast.LENGTH_SHORT).show()
+                binding.recycler.adapter = SimpleRowAdapter(list) { row ->
+                    // Badge: first_surah — Surah Al-Fatiha tapped
+                    if (row.title.contains("Fatiha", ignoreCase = true) ||
+                        row.title.contains("Fatihah", ignoreCase = true)) {
+                        val prefs = Prefs(requireContext())
+                        val isNew = prefs.unlockBadge("first_surah")
+                        if (isNew) {
+                            val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+                            if (uid != null) {
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    try {
+                                        com.brightnest.app.data.FirestoreRepository.saveKidsProgress(
+                                            uid,
+                                            com.brightnest.app.data.KidsProgress(
+                                                coins = prefs.coins,
+                                                stars = prefs.stars,
+                                                streak = prefs.streak,
+                                                badges = prefs.badges.toList()
+                                            )
+                                        )
+                                    } catch (e: Exception) {
+                                        android.util.Log.w("QuranFragment", "Badge sync failed", e)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Toast.makeText(requireContext(), "${row.title} — lessons coming soon", Toast.LENGTH_SHORT).show()
                 }
             }
         }

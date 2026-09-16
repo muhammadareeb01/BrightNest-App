@@ -73,7 +73,7 @@ object KidsContent {
     )
 
     private fun animal(name: String, emoji: String, sound: String) =
-        Item(name, emoji = emoji, detailText = sound, speakText = "$name. $sound")
+        Item(name, emoji = emoji, detailText = "Says: $sound", speakText = "$name. ... The $name says $sound.")
 
     private val animals = paletted(
         listOf(
@@ -260,7 +260,7 @@ object KidsContent {
     )
 
     private fun food(name: String, urdu: String, emoji: String, color: String, cat: String, f: String) =
-        Item(name, urdu = urdu, emoji = emoji, colorHex = color, detailText = f, speakText = name, category = cat)
+        Item(name, urdu = urdu, emoji = emoji, colorHex = color, detailText = f, speakText = "$name. $f", category = cat)
 
     private val fruits = listOf(
         food("Apple", "سیب", "🍎", "#EF4444", "fruit", "An apple a day keeps the doctor away!"),
@@ -275,25 +275,25 @@ object KidsContent {
         food("Mango", "آم", "🥭", "#F59E0B", "fruit", "Mango is the king of fruits in Pakistan!"),
         food("Lemon", "لیموں", "🍋", "#FDE047", "fruit", "Lemons are very sour but very healthy."),
         food("Peach", "آڑو", "🍑", "#FB923C", "fruit", "Peaches have fuzzy soft skin."),
-        food("Plum", "آلوبخارا", "🟣", "#9333EA", "fruit", "Dried plums become prunes."),
+        food("Plum", "آلوبخارا", "🍑", "#9333EA", "fruit", "Dried plums become prunes."),
         food("Coconut", "ناریل", "🥥", "#A8A29E", "fruit", "Coconuts can float across oceans!"),
-        food("Pomegranate", "انار", "🔴", "#B91C1C", "fruit", "One pomegranate can have 600 seeds!"),
+        food("Pomegranate", "انار", "🪸", "#B91C1C", "fruit", "One pomegranate can have 600 seeds!"),
         food("Kiwi", "کیوی", "🥝", "#7C5E2A", "fruit", "Kiwi has more Vitamin C than orange."),
-        food("Papaya", "پپیتا", "🟠", "#F97316", "fruit", "Papayas grow on trees, not bushes."),
-        food("Guava", "امرود", "🟢", "#EC4899", "fruit", "Guava skin is edible and healthy!"),
+        food("Papaya", "پپیتا", "🍈", "#F97316", "fruit", "Papayas grow on trees, not bushes."),
+        food("Guava", "امرود", "🍏", "#22C55E", "fruit", "Guava skin is edible and healthy!"),
         food("Blueberry", "بلوبیری", "🫐", "#3B82F6", "fruit", "Blueberries are great for your brain."),
-        food("Dates", "کھجور", "🟤", "#92400E", "fruit", "Prophet Muhammad ﷺ loved eating dates."),
-        food("Fig", "انجیر", "🟣", "#7C3AED", "fruit", "Figs are mentioned in the Holy Quran."),
+        food("Dates", "کھجور", "🌴", "#92400E", "fruit", "Prophet Muhammad ﷺ loved eating dates."),
+        food("Fig", "انجیر", "🍇", "#7C3AED", "fruit", "Figs are mentioned in the Holy Quran."),
         food("Olive", "زیتون", "🫒", "#4D7C0F", "fruit", "Olives are blessed in the Quran."),
         food("Avocado", "ایوکاڈو", "🥑", "#65A30D", "fruit", "Avocado is actually a fruit, not a veggie!"),
         food("Carrot", "گاجر", "🥕", "#F97316", "veg", "Carrots help you see better in the dark."),
         food("Broccoli", "بروکلی", "🥦", "#15803D", "veg", "Broccoli is a tiny green tree!"),
         food("Cabbage", "گوبھی", "🥬", "#84CC16", "veg", "Cabbage has layers like a book."),
-        food("Lettuce", "سلاد", "🥬", "#22C55E", "veg", "Lettuce is mostly water and very fresh."),
+        food("Lettuce", "سلاد", "🥗", "#22C55E", "veg", "Lettuce is mostly water and very fresh."),
         food("Tomato", "ٹماٹر", "🍅", "#DC2626", "veg", "Tomatoes are actually fruits, but we cook them like veggies."),
         food("Potato", "آلو", "🥔", "#A16207", "veg", "Potatoes grow underground."),
         food("Corn", "مکئی", "🌽", "#FACC15", "veg", "Corn has silky threads at the top."),
-        food("Peas", "مٹر", "🟢", "#16A34A", "veg", "Peas hide inside green pods."),
+        food("Peas", "مٹر", "🫛", "#16A34A", "veg", "Peas hide inside green pods."),
         food("Cucumber", "کھیرا", "🥒", "#22C55E", "veg", "Cucumbers stay cool inside in summer."),
         food("Pumpkin", "کدو", "🎃", "#EA580C", "veg", "Pumpkins can grow bigger than you!"),
         food("Eggplant", "بینگن", "🍆", "#6B21A8", "veg", "Eggplant is purple and shiny outside."),
@@ -303,7 +303,7 @@ object KidsContent {
         food("Garlic", "لہسن", "🧄", "#F4ECD8", "veg", "Garlic is great for fighting germs!"),
         food("Mushroom", "کھمبی", "🍄", "#A16207", "veg", "Mushrooms are not plants — they're fungi!"),
         food("Spinach", "پالک", "🥬", "#15803D", "veg", "Spinach makes you strong like Popeye."),
-        food("Radish", "مولی", "🔴", "#E11D48", "veg", "Radishes are crunchy and a bit spicy.")
+        food("Radish", "مولی", "🌱", "#E11D48", "veg", "Radishes are crunchy and a bit spicy.")
     )
 
     private fun alpha(letter: String, rom: String) =

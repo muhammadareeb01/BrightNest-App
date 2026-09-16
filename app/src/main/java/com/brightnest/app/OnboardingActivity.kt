@@ -40,8 +40,11 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
         binding.btnGetStarted.setOnClickListener {
-            Prefs(this).onboarded = true
-            startActivity(Intent(this, AuthActivity::class.java))
+            val prefs = Prefs(this)
+            prefs.onboarded = true
+            
+            val next = if (prefs.isAdult) AuthActivity::class.java else KidsProfileActivity::class.java
+            startActivity(Intent(this, next))
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }

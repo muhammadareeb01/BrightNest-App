@@ -198,7 +198,15 @@ class NamazFragment : Fragment() {
                     setStroke(dp(2), c)
                 }
                 layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = dp(12) }
-                setOnClickListener { speak("${s.step}. ${s.desc}") }
+                setOnClickListener { 
+                    if (ttsReady) {
+                        val langCode = com.brightnest.app.Prefs(requireContext()).language.lowercase()
+                        com.brightnest.app.AppLanguageHelper.configureTts(tts, langCode)
+                        val textToSpeak = if (langCode == "ur") "${s.stepUrdu}۔ ${s.descUrdu}" else "${s.step}. ${s.desc}"
+                        tts?.stop()
+                        tts?.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "bn")
+                    }
+                }
             }
             val head = LinearLayout(ctx).apply {
                 orientation = LinearLayout.HORIZONTAL
@@ -300,7 +308,15 @@ class NamazFragment : Fragment() {
             setPadding(dp(32), dp(14), dp(32), dp(14))
             background = GradientDrawable().apply { cornerRadius = dp(28).toFloat(); setColor(c) }
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { topMargin = dp(28) }
-            setOnClickListener { speak("${p.name}. ${p.about}") }
+            setOnClickListener { 
+                if (ttsReady) {
+                    val langCode = com.brightnest.app.Prefs(requireContext()).language.lowercase()
+                    com.brightnest.app.AppLanguageHelper.configureTts(tts, langCode)
+                    val textToSpeak = if (langCode == "ur") "${p.urdu}۔ ${p.aboutUrdu}" else "${p.name}. ${p.about}"
+                    tts?.stop()
+                    tts?.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "bn")
+                }
+            }
         }
         box.addView(listen)
         binding.detailRoot.visibility = View.VISIBLE

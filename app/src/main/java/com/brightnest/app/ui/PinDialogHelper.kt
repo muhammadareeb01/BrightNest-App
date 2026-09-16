@@ -13,6 +13,45 @@ object PinDialogHelper {
 
     fun show(context: Context, prefs: Prefs, onSuccess: () -> Unit, onCancel: (() -> Unit)? = null) {
         val storedPin = prefs.parentPin
+
+        if (!prefs.isAdult && storedPin.isBlank()) {
+            val input = EditText(context).apply {
+                inputType = InputType.TYPE_CLASS_NUMBER
+                hint = "Answer"
+            }
+            val container = LinearLayout(context).apply {
+                orientation = LinearLayout.VERTICAL
+                setPadding(60, 20, 60, 0)
+                addView(input)
+            }
+            val num1 = (5..12).random()
+            val num2 = (5..12).random()
+            val ans = num1 * num2
+
+            MaterialAlertDialogBuilder(context)
+                .setTitle("Grown-Ups Only!")
+                .setMessage("Ask your parents for help.\n\nWhat is $num1 x $num2?")
+                .setView(container)
+                .setCancelable(false)
+                .setPositiveButton("Verify") { d, _ ->
+                    if (input.text.toString().trim() == ans.toString()) {
+                        d.dismiss()
+                        val intent = android.content.Intent(context, com.brightnest.app.AuthActivity::class.java)
+                        intent.putExtra("force_login", true)
+                        context.startActivity(intent)
+                    } else {
+                        Toast.makeText(context, "Oops, that's not right!", Toast.LENGTH_SHORT).show()
+                        onCancel?.invoke()
+                    }
+                }
+                .setNegativeButton("Cancel") { d, _ ->
+                    d.dismiss()
+                    onCancel?.invoke()
+                }
+                .show()
+            return
+        }
+
         if (storedPin.isBlank()) {
             val input = EditText(context).apply {
                 inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD

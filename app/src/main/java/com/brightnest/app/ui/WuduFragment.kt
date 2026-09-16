@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.brightnest.app.R
 import com.brightnest.app.databinding.FragmentContentListBinding
-import java.util.Locale
 import androidx.lifecycle.lifecycleScope
 import com.brightnest.app.BrightNestApp
 import kotlinx.coroutines.launch
@@ -172,18 +171,28 @@ class WuduFragment : Fragment() {
             return
         }
 
-        android.widget.Toast.makeText(context, "🔊 ${s.name} (${s.nameUrdu}) — تَعَوُّذْ اور تَسْمِیَہ کے ساتھ", android.widget.Toast.LENGTH_SHORT).show()
+        tts?.stop()
 
-        val azubillah = "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ"
-        val bismillah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
-        val speechText = when (s.n) {
-            2 -> "$azubillah . $bismillah . وضو شروع کرنے سے پہلے بسم اللہ پڑھیں۔ Say Bismillah before starting Wudu."
-            11 -> "$azubillah . $bismillah . أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ . وضو کے بعد کلمہ شہادت اور دعا پڑھیں۔ ${s.desc}"
-            else -> "$azubillah . $bismillah . سٹیپ ${s.n}، ${s.nameUrdu} (${s.name}) ۔ ${s.descUrdu} ۔ ${s.desc}"
+        val langCode = com.brightnest.app.Prefs(requireContext()).language.lowercase()
+
+        // Speak the explanation in the preferred language
+        com.brightnest.app.AppLanguageHelper.configureTts(tts, langCode)
+        val explanation = if (langCode == "ur") {
+            when (s.n) {
+                1 -> "سٹیپ ${s.n}، نیت۔ ${s.nameUrdu}۔ ${s.descUrdu}"
+                2 -> "سٹیپ ${s.n}، بسم اللہ۔ ${s.descUrdu}"
+                11 -> "سٹیپ ${s.n}، دعا۔ ${s.descUrdu}"
+                else -> "سٹیپ ${s.n}، ${s.nameUrdu}۔ ${s.descUrdu}"
+            }
+        } else {
+            when (s.n) {
+                2 -> "Say Bismillah before starting Wudu."
+                11 -> "After Wudu recite the Shahadah and the Wudu Dua. ${s.desc}"
+                else -> "Step ${s.n}, ${s.name}. ${s.desc}"
+            }
         }
 
-        tts?.stop()
-        tts?.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, "wudu_tts")
+        tts?.speak(explanation, TextToSpeech.QUEUE_FLUSH, null, "wudu_exp_${s.n}")
     }
 
     override fun onDestroyView() {
